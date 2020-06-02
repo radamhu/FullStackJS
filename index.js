@@ -37,3 +37,56 @@ fuggveny()
 fuggveny()
 fuggveny(1, 3)
 fuggveny(1,3,6)
+
+function Allat () {
+    this.hang = 'woof'
+}
+
+// minden egy object
+// így egy class is egy object
+// obecjt prototípusára aggatunk function-t minden példányon rajta lesz
+Allat.prototype.hangotAd = function () {
+    console.log(this.hang)
+}
+
+var kutya = new Allat()
+
+kutya.hangotAd()
+
+class Allat2 {
+    constructor() {
+        this.hang = 'woof'
+    }
+
+    hangotAd() {
+        console.log(this.hang)
+    }
+    
+}
+
+// sima függvény
+const fs = require('fs')
+const fileContent = fs.readFileSync('./file.txt')
+console.log(fileContent.toString())
+
+// async io, callback függvéy, majd szólsz
+// átpasszoltuk a libuv-nek, hogy jól van ha kész vagy szóljál
+fs.readFile('./file.txt', function (err, fileContent) {
+    console.log(fileContent.toString())
+})
+// utána tudok csinálni amit akarok
+console.log('async után')
+console.log('async után')
+console.log('async után')
+console.log('async után')
+console.log('async után')
+console.log('async után')
+
+// ezzel kezdünk ma:
+const http = require("http");
+
+http
+  .createServer((req, res) => {
+    res.end("Szia Suriel");
+  })
+  .listen(3000);
