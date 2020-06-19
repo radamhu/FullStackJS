@@ -13,11 +13,13 @@ privateRouter.use(auth);
 
 // itt létrehozzuk a router-t de még nincs használatban
 // a / útvonlara halgat és visszaválaszol (callback)
-publicRouter.get('/', (req, res) => {
-  res.end({
-    message: 'Ok',
+publicRouter.get('/healthz', (req, res) => {
+  setTimeout(() => {
+    res.send({
+      message: 'OK',
     });
-  });
+  }, 2000)
+});
 
 publicRouter.get('/currency', async (req, res) => {
   // ahhoz hogy az async-es függvényt használni tudjuk, be kell várni : await

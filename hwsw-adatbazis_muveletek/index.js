@@ -4,6 +4,8 @@ const { connect } = require('./db');
 // minde app-hoz szükséges erőforrsát elindítsunk
 // web szervert és a db-t is pl
 
+process.env.NODE_ENV
+
 async function startup() {
     try {
         await init();

@@ -1,6 +1,6 @@
 const axios = require('axios');
 // destruktúrálással csak a currencyAPIKey-t objektum elemet húzom be magából a config fájlból
-const { currencyAPIKey } = require('./config');
+const { currencyAPIKey, currencyAPIURL } = require('./config');
 const logger = require('./logger');
 
 // async függvény : visszatré az axios által nyújtott promise-al
@@ -12,7 +12,7 @@ async function getCurrency() {
    // console.log(response.data);
    //});
    // itt vissza is tér a promise data : lehet api-ként használni
-    return axios.get(`https://my.api.mockaroo.com/currency?key=${currencyAPIKey}`)
+    return axios.get(`${currencyAPIURL}?key=${currencyAPIKey}`)
         .then(response => response.data)
         .catch((err) => {
             logger.error(err);
