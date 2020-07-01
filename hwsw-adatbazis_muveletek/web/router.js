@@ -9,6 +9,7 @@ const auth = require('./auth/jwt');
 const publicRouter = Router();
 const privateRouter = Router();
 
+// használ egy authetnikációt
 privateRouter.use(auth);
 
 // itt létrehozzuk a router-t de még nincs használatban

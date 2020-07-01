@@ -1,5 +1,6 @@
 const joi = require('joi');
 
+// környezeti változókat le is validáljuk
 // unknow : elfogadhat más értéekket, is , nemcsak azokat amit az objektumban definiálunk
 // required: fontos hogy az obketum ott legyn:
 const configSchema = joi

@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 
 // itt mondjuk meg az app-nak hogy használja is a router-t
 app.use(publicRouter);
+// itt már authentikálni kell
 app.use(privateRouter);
 
 // csinálunk egy middleware-t error handle-re, callbck-be az err-t adjuk meg 1st

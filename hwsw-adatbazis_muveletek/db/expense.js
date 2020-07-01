@@ -11,6 +11,7 @@ async function list() {
 }
 
 async function get(id) {
+    // csak a mondo-nál kell figyelni, hogy ObjectID-t használjunk, z a db-ben az entitás egyedi azonosítóka
     const result = await getDB().collection(collectionName).findOne({ _id: ObjectID(id) });
     return result;    
 }

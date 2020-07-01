@@ -1,6 +1,7 @@
 const { init } = require('./web/server');
 const logger = require('./logger');
 const { connect } = require('./db');
+// indít egy webszervert
 // minde app-hoz szükséges erőforrsát elindítsunk
 // web szervert és a db-t is pl
 
