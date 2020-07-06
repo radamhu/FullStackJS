@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import NAmeInput from './NAmeInput';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor() {
+    super()
+
+    this.state = {
+      firstName: 'Béela',
+      lastName: 'Kovács',
+      clickCount: 0
+    }
+  }
+
+  handleNameChange(key, value) {
+    // staet direkteb nem mutálhatunk csak a setState-n keresztül
+    this.setState({
+      [key]: value
+    })
+  }
+
+  handlePlusOneClick() { 
+    this.setState((prevState) => {
+      return { clickCount: prevState.clickCount + 1 } 
+    })
+  }
+
+  render() {
+    const { firstName, lastName } = this.state
+
+    const fullName = `${lastName} ${firstName}`;
+    
+    return (
+      <div >
+        Nev: { fullName.length > 3 && fullName }
+        <NAmeInput
+          firstName={firstName}
+          lastName={lastName}
+          onNameChange={this.handleNameChange.bind(this)} />
+        
+        <br>
+        </br>
+
+        <button onClick={this.handlePlusOneClick.bind(this)} >+1</button> {this.state.clickCount } 
+      </div>
+    );
+  }
 }
 
 export default App;
