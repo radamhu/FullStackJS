@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
+import store from './store';
+// ne a ste-ből hanem a redux store-ból (globális state) szedjem az adatokat
+import { Provider } from 'react-redux';
 
 ReactDOM.render(
-  <React.StrictMode>
+  // Provider wrapper : app komponensen belül props-on kerseztül elérni a store-t
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
