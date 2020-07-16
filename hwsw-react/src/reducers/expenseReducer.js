@@ -1,10 +1,9 @@
-import { ADD_EXPENSE } from '../actions/actionType';
+import { ADD_EXPENSE, GET_EXPENSES_PENDING, GET_EXPENSES_FAIL } from '../actions/actionType';
 
 const initialState = {
-    expenses: [
-        { id: 0, name: 'Kiadás #1', amount: 12312, currency: 'huf', comment: '....' },
-        { id: 1, name: 'Kiadás #2', amount: 12312, currency: 'euor', comment: '....' }
-    ]
+    expenses: [],
+    isPending: false,
+    error: null
 }
 
 // reducer mit csinál? a régi állapotból egy új állapotot állít elő, anélkül hogy mutálna
@@ -12,6 +11,28 @@ const initialState = {
 // kezdeti állapotot vár, incializálva üres tömbbel
 const expenseReducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_EXPENSES_PENDING: return {
+            ...state,
+
+            expenses: [],
+            isPending: true,
+        }
+
+        case GET_EXPENSES_PENDING: return {
+            // spread operator: redeti state-t megtartom
+            ...state,
+
+            expenses: action.value,
+            isPending: false
+        }
+        
+        case GET_EXPENSES_FAIL: return {
+            ...state,
+
+            isPending: false,
+            error: action.error
+        }
+        
         case ADD_EXPENSE: return {
             // {...object} acts like Object.assign()
             // Passing {...object} as an attribute will add all of the properties of the object as separate attributes. 

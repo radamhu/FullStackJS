@@ -4,12 +4,22 @@ import ExpenseForm from '../components/ExpenseForm';
 import ExpenseList from '../components/ExpenseList';
 import { connect } from 'react-redux';
 import { addExpense } from '../actions/actionType';
+// import { getExpenses } from '../api/index';
+import { getExpenses } from '../actions/expenseActions';
+import { incrementAsync } from '../actions/countAction';
+
 
 // class alapú komponens
 class App extends Component {
 
   constructor() {
     super()
+
+    // koimponens belső sate-je
+    this.state = {
+      // azok az kaidások amiket az API ad vissza
+      apiExpenses: []
+    }
 
     // van egy kezdeti belső state-je amiben tárolunk pár változót
     // ezt űtpasszoljuk az alatta lévő komponensnek
@@ -45,6 +55,26 @@ class App extends Component {
     this.props.onAddExpense(expense);
   }
 
+  // amikor a komponensünk vizuálisan betölt akkor hívodik meg az itteni dolog
+  // tökéletes lifecícle event arra hogy kiváltsunk vmilyen eseméynt akkor az APP ténylegesn először kirenderelődött
+  componentDidMount() {
+    this.props.getExpenses();
+
+    // getExpenses()
+    //   // promise-oknak az eredményét a then-el lehet megszerezni
+    //   // amit az axios visszaad az egy response objektum, amit meg aakrunk jeleníteni a response.data
+    //   .then(response => {
+    //     // state-ben tároljunk el, de hogyan tudunk mutálni? direktbe nem, hanem
+    //     // response.data helyett setState metódus ahol megmondom emlyik propertyt: apiExpense változtatom meg, hogy az legyen apiExpense-el egyenlő
+    //     this.setState({
+    //       apiExpenses: response.data
+    //     })
+    //   })
+    //   // .catch(err => {
+        
+    //   // })
+  }
+
   // event handling és ezt az eseményt hogy kell lekezelni
   // és az osztály vmilyen belső metódusát szeretnénk használni akkor még bind-olni is kell
   // handleNameChange(key, value) {
@@ -78,8 +108,10 @@ class App extends Component {
         </br>
         <button onClick={this.handlePlusOneClick.bind(this)} >+1</button> {this.state.clickCount }  */}
         {/* 2 komponens, adjunk props-ot hozzá,  */}
-        <ExpenseForm onAddExpense={this.handleAddExpense}/>
-        <ExpenseList expenses={this.props.expenses}/>
+        <ExpenseForm onAddExpense={this.handleAddExpense} />
+        <ExpenseList expenses={this.props.expenses} isLoading={this.props.isPending}/>
+         {/* button megjívja a state count értéket, props-on kerseztül */}
+        <button onClick={() => { this.props.increment(3) }}>{this.props.count}</button>
       </div>
     );
   }
@@ -87,17 +119,24 @@ class App extends Component {
 
 // leválogatunk a store-rol adott értéke szerint
 // kap egy state - et és leválogatja az információkat: store 2 ága van expense, counter
+// count-ot defeniálni itt kell hogy elérhessem
+// state-t a props-al összekötöttem
 const mapStateToProps = (state) => {
   // olyan objektumot küldün vissza ami csak az expenseket fogja tárolni
   return {
-    expenses: state.expense.expenses
+    count: state.count,
+    expenses: state.expense.expenses,
+    isPending: state.expense.isPending
   }
 }
 
+// meg tudjak hivni, dispatchelni valamit, hogy meghvhassam
 const mapDispatchToProps = (dispatch) => {
   // olyan objektumot küldün vissza ami csak az expenseket fogja tárolni
   return {
-    onAddExpense: (expense) => dispatch(addExpense(expense))
+    onAddExpense: (expense) => dispatch(addExpense(expense)),
+    increment: (value) => dispatch(incrementAsync(value)),
+    getExpenses: () => dispatch(getExpenses())
   }
 }
 

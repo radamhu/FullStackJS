@@ -10,11 +10,12 @@ const publicRouter = Router();
 const privateRouter = Router();
 
 // használ egy authetnikációt
-privateRouter.use(auth);
+// privateRouter.use(auth);
 
 // itt létrehozzuk a router-t de még nincs használatban
 // a / útvonlara halgat és visszaválaszol (callback)
-publicRouter.get('/healthz', (req, res) => {
+//publicRouter.get('/healthz', (req, res) => {
+publicRouter.get('/', (req, res) => {
   setTimeout(() => {
     res.send({
       message: 'OK',

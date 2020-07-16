@@ -29,10 +29,11 @@ class ExpenseList extends React.Component {
                     {/* végig itelárulnk a kiadásokn, props.expenses-en végiglépkedek, végig map-elek, a tömb elemein végigmegyek, szépen viszakpaok egy expensese-t
             minden egyes expense-re, dobjon ki egy tábláz sort
             */}
+                    {this.props.loading && <p>'Betoltes allatt'</p> }
                     {this.props.expenses.map((expense) => {
                         return expense.amount > this.state.amountGt &&
-                        <tr key={expense.id}>
-                            <td>{expense.name}</td>
+                        <tr key={expense._id}>
+                            <td>{expense.name || expense.title}</td>
                             <td>{expense.amount} {expense.currency}</td>
                             <td>{expense.comment} </td>
                         </tr>;
@@ -42,5 +43,6 @@ class ExpenseList extends React.Component {
         </div>;
     }
 }
+
 
 export default ExpenseList;
