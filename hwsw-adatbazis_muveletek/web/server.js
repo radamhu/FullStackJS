@@ -13,6 +13,8 @@ const app = express();
 // az app-ot átadjuk a createServer-nek, így csinálunk callback-ből promise-t
 const server = http.createServer(app);
 
+// milyen URL-, domain-n keresztül érhető ez a komponens
+// cors-t a böngésző biztosítja, postman és társaiból továbbra is elérhető az alklamzás CORS nélül
 app.use(cors());
 app.use(bodyParser.json());
 //app.use(helmet());

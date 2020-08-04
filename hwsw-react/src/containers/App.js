@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import ExpenseForm from '../components/ExpenseForm';
 import ExpenseList from '../components/ExpenseList';
 import { connect } from 'react-redux';
-import { addExpense } from '../actions/actionType';
+import { addExpense, getExpenses } from '../actions/expenseActions';
 // import { getExpenses } from '../api/index';
-import { getExpenses } from '../actions/expenseActions';
 import { incrementAsync } from '../actions/countAction';
 
 
@@ -52,7 +51,8 @@ class App extends Component {
     //})
 
     // 
-    this.props.onAddExpense(expense);
+    this.props.AddExpense(expense)
+      
   }
 
   // amikor a komponensünk vizuálisan betölt akkor hívodik meg az itteni dolog
@@ -134,7 +134,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   // olyan objektumot küldün vissza ami csak az expenseket fogja tárolni
   return {
-    onAddExpense: (expense) => dispatch(addExpense(expense)),
+    AddExpense: (expense) => dispatch(addExpense(expense)),
     increment: (value) => dispatch(incrementAsync(value)),
     getExpenses: () => dispatch(getExpenses())
   }
